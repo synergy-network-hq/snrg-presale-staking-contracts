@@ -1,0 +1,7 @@
+=== Aderyn installer ===
+downloading aderyn 0.6.8 aarch64-apple-darwin
+installing to /Users/devpup/.cargo/bin
+  aderyn
+  aderyn-update
+everything's installed!
+aderyn_installer_exit=0

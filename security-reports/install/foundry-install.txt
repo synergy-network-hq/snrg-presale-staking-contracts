@@ -1,0 +1,59 @@
+=== Foundry installer ===
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   167    0   167    0     0    444      0 --:--:-- --:--:-- --:--:--   445
+100  2198  100  2198    0     0   4295      0 --:--:-- --:--:-- --:--:--  4295
+Installing foundryup...
+
+warning: libusb not found. You may need to install it manually on MacOS via Homebrew (brew install libusb).
+
+Detected your preferred shell is bash and added foundryup to PATH.
+Run 'source /Users/devpup/.bashrc' or start a new terminal session to use foundryup.
+Then, simply run 'foundryup' to install Foundry.
+foundry_installer_exit=0
+
+
+.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx
+
+ ╔═╗ ╔═╗ ╦ ╦ ╔╗╔ ╔╦╗ ╦═╗ ╦ ╦         Portable and modular toolkit
+ ╠╣  ║ ║ ║ ║ ║║║  ║║ ╠╦╝ ╚╦╝    for Ethereum Application Development
+ ╚   ╚═╝ ╚═╝ ╝╚╝ ═╩╝ ╩╚═  ╩                 written in Rust.
+
+.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx
+
+Repo       : https://github.com/foundry-rs/foundry
+Book       : https://book.getfoundry.sh/
+Chat       : https://t.me/foundry_rs/
+Support    : https://t.me/foundry_support/
+Contribute : https://github.com/foundry-rs/foundry/blob/HEAD/CONTRIBUTING.md
+
+.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx.xOx
+
+foundryup: checking if foundryup is up to date...
+foundryup: foundryup is up to date.
+foundryup: fetching latest release tag from foundry-rs/foundry...
+foundryup: resolved release tag: v1.7.1
+foundryup: installing foundry (version v1.7.1, tag v1.7.1)
+foundryup: checking if forge, cast, anvil, chisel, and solar for v1.7.1 version are already installed
+#=#=#                                                                          ##O#-#                                                                         ##O=#  #                                                                       #=#=-#  #                                                                      ######################################################################## 100.0%
+foundryup: found attestation for v1.7.1 version, downloading attestation artifact, checking...
+#=#=#                                                                          ##################################################                        69.8%######################################################################## 100.0%
+foundryup: binaries not found or do not match expected hashes, downloading new binaries
+foundryup: downloading forge, cast, anvil, chisel, and solar for v1.7.1 version
+#=#=#                                                                          ##O#-#                                                                                                                                                    0.0%                                                                           0.7%###                                                                        4.7%#########                                                                 12.7%###############                                                           22.2%########################                                                  34.1%##################################                                        47.4%########################################                                  56.8%#################################################                         69.0%#########################################################                 80.2%#################################################################         90.8%######################################################################## 100.0%
+x forge
+x cast
+x anvil
+x chisel
+foundryup: downloading manpages
+#=#=#                                                                          ##O#-#                                                                         ######################################################################## 100.0%
+foundryup: verifying downloaded binaries against the attestation file
+foundryup: forge verified ✓
+foundryup: cast verified ✓
+foundryup: anvil verified ✓
+foundryup: chisel verified ✓
+foundryup: use - forge 1.7.1 (4072e48705 2026-05-08T07:54:31.470926000Z)
+foundryup: use - cast 1.7.1 (4072e48705 2026-05-08T07:54:31.470926000Z)
+foundryup: use - anvil 1.7.1 (4072e48705 2026-05-08T07:54:31.470926000Z)
+foundryup: use - chisel 1.7.1 (4072e48705 2026-05-08T07:54:31.470926000Z)
+foundryup_exit=0

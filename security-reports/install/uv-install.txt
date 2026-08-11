@@ -1,0 +1,8 @@
+=== uv installer ===
+downloading uv 0.12.3 aarch64-apple-darwin
+installing to /Users/devpup/.local/bin
+  uv
+  uvx
+everything's installed!
+uv_installer_exit=0
+uv 0.12.3 (507230998 2026-08-07 aarch64-apple-darwin)
