@@ -1,0 +1,77 @@
+{
+  "version": "1.0",
+  "chainId": "1",
+  "createdAt": 1786556090000,
+  "meta": {
+    "name": "Activate SNRG presale staking on Ethereum",
+    "description": "Assigns reward-ledger and staking roles and configures the independent two-of-three attestor epoch.",
+    "txBuilderVersion": "1.18.0",
+    "createdFromSafeAddress": "0x72F57B74C0b2D556589CeB393103bea0f631933B",
+    "createdFromOwnerAddress": ""
+  },
+  "transactions": [
+    {
+      "to": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "value": "0",
+      "data": "0x2f2ff15dedcc084d3dcd65a1f7f23c65c46722faca6953d28e43150a467cf43e5c3092380000000000000000000000003297c6bb4895e6af63141aefeae4a23c573aa120",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "value": "0",
+      "data": "0x2f2ff15d114e74f6ea3bd819998f78687bfcb11b140da08e9b7d222fa9c1f1ba1f2aa1220000000000000000000000003297c6bb4895e6af63141aefeae4a23c573aa120",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "value": "0",
+      "data": "0x2f2ff15dedcc084d3dcd65a1f7f23c65c46722faca6953d28e43150a467cf43e5c30923800000000000000000000000094891c82fdcaae150c920f2fa497a0cb317fa2bd",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "value": "0",
+      "data": "0x2f2ff15d114e74f6ea3bd819998f78687bfcb11b140da08e9b7d222fa9c1f1ba1f2aa12200000000000000000000000094891c82fdcaae150c920f2fa497a0cb317fa2bd",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "value": "0",
+      "data": "0x2f2ff15d65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a00000000000000000000000072f57b74c0b2d556589ceb393103bea0f631933b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "value": "0",
+      "data": "0x2f2ff15d6bd6b5318a46e5fff572d5e4258a20774aab40cc35ac7680654b9081fcc82f8000000000000000000000000072f57b74c0b2d556589ceb393103bea0f631933b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x3297c6BB4895E6aF63141aefEae4A23c573AA120",
+      "value": "0",
+      "data": "0x2f2ff15d65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a00000000000000000000000072f57b74c0b2d556589ceb393103bea0f631933b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0x3297c6BB4895E6aF63141aefEae4A23c573AA120",
+      "value": "0",
+      "data": "0x2f2ff15dfc8737ab85eb45125971625a9ebdb75cc78e01d5c1fa80c4c6e5203f47bc4fab00000000000000000000000072f57b74c0b2d556589ceb393103bea0f631933b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0xA9dee368531985606D1283D6543D35F0276C0a96",
+      "value": "0",
+      "data": "0xe7e7b3fe00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000030000000000000000000000003cf391b9896bbb03e27450ec045476e0536e35e10000000000000000000000008ffcd5f979e934b5a09b8b078359fcadd1636f12000000000000000000000000d915c5c5e0535abe875bf556c545a6c3ce025d24",
+      "contractMethod": null,
+      "contractInputsValues": null
+    }
+  ]
+}

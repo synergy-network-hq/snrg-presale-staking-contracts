@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "chainId": "8453",
+  "createdAt": 1786556090000,
+  "meta": {
+    "name": "Activate SNRG presale staking on Base",
+    "description": "Connects the locked SNRG contract to the deployed staking contract and assigns operational roles to the governance Safe.",
+    "txBuilderVersion": "1.18.0",
+    "createdFromSafeAddress": "0x72F57B74C0b2D556589CeB393103bea0f631933B",
+    "createdFromOwnerAddress": ""
+  },
+  "transactions": [
+    {
+      "to": "0x7E6B6D10d6dCDEf7FDF8EAA10717eFB3eb6E3101",
+      "value": "0",
+      "data": "0x8ff39099000000000000000000000000b8d1a3f9b53a824c1beea0d841a777947ca45825",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0xB8d1a3f9B53A824c1bEea0D841A777947cA45825",
+      "value": "0",
+      "data": "0x2f2ff15d65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a00000000000000000000000072f57b74c0b2d556589ceb393103bea0f631933b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    },
+    {
+      "to": "0xB8d1a3f9B53A824c1bEea0D841A777947cA45825",
+      "value": "0",
+      "data": "0x2f2ff15dfc8737ab85eb45125971625a9ebdb75cc78e01d5c1fa80c4c6e5203f47bc4fab00000000000000000000000072f57b74c0b2d556589ceb393103bea0f631933b",
+      "contractMethod": null,
+      "contractInputsValues": null
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "releaseCommit": "bfbdf432fbacbdd6570bc546250a3da0990ea5b9",
+  "compiler": "0.8.36",
+  "openzeppelin": "5.6.1",
+  "governanceSafe": "0x72F57B74C0b2D556589CeB393103bea0f631933B",
+  "contracts": [
+    {
+      "name": "BaseSAFTVoucherAdapter",
+      "chainId": 8453,
+      "network": "Base Mainnet",
+      "address": "0x0E009604075710EAf0fe89e7DBd3B48486240BFc",
+      "creationTransaction": "0xae83a89e59d015bcd3dadb4c7e44f12e540f5e7317fb33887068fb0e1529e1bd",
+      "creationBlock": 49882556,
+      "runtimeBytecodeHash": "0x1f7bf7c3e051c4237f543d8c5ae767b83002510bb5df5015039c97c845821e4d",
+      "abi": "abis/BaseSAFTVoucherAdapter.json",
+      "explorer": "https://basescan.org/address/0x0E009604075710EAf0fe89e7DBd3B48486240BFc#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "SynergyBaseStaking",
+      "chainId": 8453,
+      "network": "Base Mainnet",
+      "address": "0xB8d1a3f9B53A824c1bEea0D841A777947cA45825",
+      "creationTransaction": "0x527ddc8cc5bf1e1cbca43e753a3a4774e7f6175eef1182853018a61504c1f455",
+      "creationBlock": 49882557,
+      "runtimeBytecodeHash": "0xcd9b625608d3edcb97f2698681706cabb0af0bcf7379211a6c9c3a8b46392f31",
+      "abi": "abis/SynergyBaseStaking.json",
+      "explorer": "https://basescan.org/address/0xB8d1a3f9B53A824c1bEea0D841A777947cA45825#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "SynergyStakingRewardVoucher",
+      "chainId": 1,
+      "network": "Ethereum Mainnet",
+      "address": "0x7aC2bd7C40d190CE218368421161C47729083dba",
+      "creationTransaction": "0x83c03421705859219f0beef2ca98676742c54ccddc8748c0525db951c75b7ea5",
+      "creationBlock": 25740315,
+      "runtimeBytecodeHash": "0x9f74b47d300347879463928adf645ccb2272e802ca124a1ba4e581686f2499c3",
+      "abi": "abis/SynergyStakingRewardVoucher.json",
+      "explorer": "https://etherscan.io/address/0x7aC2bd7C40d190CE218368421161C47729083dba#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "EthereumAllocationVoucherAdapter",
+      "chainId": 1,
+      "network": "Ethereum Mainnet",
+      "address": "0xF4599e0C17e7477a9339Ee1c7e96af4e598cdBf8",
+      "creationTransaction": "0xad90126e9fecc642b3473189678fb29d05529e6b87635343af47c364b4392a6c",
+      "creationBlock": 25740316,
+      "runtimeBytecodeHash": "0xe6ad49772489d13b89ae29a1255592df1a09a2c89653a9cc74709d8e7775d62e",
+      "abi": "abis/EthereumAllocationVoucherAdapter.json",
+      "explorer": "https://etherscan.io/address/0xF4599e0C17e7477a9339Ee1c7e96af4e598cdBf8#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "SynergyEthereumVoucherStaking",
+      "chainId": 1,
+      "network": "Ethereum Mainnet",
+      "address": "0x3297c6BB4895E6aF63141aefEae4A23c573AA120",
+      "creationTransaction": "0xb54a7e6009db65b5ace0e46e451902bdae5a179a297b1b8287662e4ee7aeb9ff",
+      "creationBlock": 25740317,
+      "runtimeBytecodeHash": "0x4196d8f5eaf72d08ff1dbfafc3dfe52c40bf4ed97c0c88953c8eab04ea7f0641",
+      "abi": "abis/SynergyEthereumVoucherStaking.json",
+      "explorer": "https://etherscan.io/address/0x3297c6BB4895E6aF63141aefEae4A23c573AA120#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "StakingAttestorRegistry",
+      "chainId": 1,
+      "network": "Ethereum Mainnet",
+      "address": "0xA9dee368531985606D1283D6543D35F0276C0a96",
+      "creationTransaction": "0x4e57e3788f0ed801278ab5005e25e9ced42982da14bdac4464d5cc117f7808db",
+      "creationBlock": 25740318,
+      "runtimeBytecodeHash": "0x4b3b391395e644836becc69f040ed8cda3add975afc11fcd5c25d1bed1d9aa06",
+      "abi": "abis/StakingAttestorRegistry.json",
+      "explorer": "https://etherscan.io/address/0xA9dee368531985606D1283D6543D35F0276C0a96#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "ThresholdStakingAttestationVerifier",
+      "chainId": 1,
+      "network": "Ethereum Mainnet",
+      "address": "0x494C2d178c31B4E97A4100EA3B3acc0ee0F1a903",
+      "creationTransaction": "0x641cb06c93c738c7f0855bd12aeecc12f9e94b7def9d104b04ec4b3d5f6a1fbf",
+      "creationBlock": 25740319,
+      "runtimeBytecodeHash": "0xa88122128a573062535862b9ca178e02b274157828fabbc1ce5600fb1ed56bc7",
+      "abi": "abis/ThresholdStakingAttestationVerifier.json",
+      "explorer": "https://etherscan.io/address/0x494C2d178c31B4E97A4100EA3B3acc0ee0F1a903#code",
+      "verification": "exact_match"
+    },
+    {
+      "name": "SXCPRewardGateway",
+      "chainId": 1,
+      "network": "Ethereum Mainnet",
+      "address": "0x94891C82FDCAAE150c920F2Fa497A0Cb317Fa2Bd",
+      "creationTransaction": "0x19789a3a742fa0486fc83cd917a8695cc56868c02961d83413de51349df48a2d",
+      "creationBlock": 25740320,
+      "runtimeBytecodeHash": "0xda68a5d376b7bc095b04847ecbbd704370316a6eb23740785ed5eb2eb3083fe2",
+      "abi": "abis/SXCPRewardGateway.json",
+      "explorer": "https://etherscan.io/address/0x94891C82FDCAAE150c920F2Fa497A0Cb317Fa2Bd#code",
+      "verification": "exact_match"
+    }
+  ]
+}

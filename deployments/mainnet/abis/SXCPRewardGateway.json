@@ -1,0 +1,1045 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "verifier",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "rewardLedger",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "baseStaking",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "BASE_CHAIN_ID",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "ETHEREUM_CHAIN_ID",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MAX_SIGNATURES",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "attestationVerifier",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IStakingAttestationVerifier"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "baseStakingContract",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "cancelPendingReward",
+    "inputs": [
+      {
+        "name": "commitment",
+        "type": "tuple",
+        "internalType": "struct RewardTypes.RewardCommitment",
+        "components": [
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSource",
+            "type": "uint8",
+            "internalType": "enum RewardTypes.StakeSource"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "reason",
+        "type": "uint8",
+        "internalType": "enum RewardTypes.CancellationReason"
+      },
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "signatures",
+        "type": "bytes[]",
+        "internalType": "bytes[]"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "consumedSourceEvents",
+    "inputs": [
+      {
+        "name": "sourceEventId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "consumed",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "issueRewardVoucher",
+    "inputs": [
+      {
+        "name": "commitment",
+        "type": "tuple",
+        "internalType": "struct RewardTypes.RewardCommitment",
+        "components": [
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSource",
+            "type": "uint8",
+            "internalType": "enum RewardTypes.StakeSource"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "signatures",
+        "type": "bytes[]",
+        "internalType": "bytes[]"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "tokenId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerPendingReward",
+    "inputs": [
+      {
+        "name": "commitment",
+        "type": "tuple",
+        "internalType": "struct RewardTypes.RewardCommitment",
+        "components": [
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSource",
+            "type": "uint8",
+            "internalType": "enum RewardTypes.StakeSource"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "signatures",
+        "type": "bytes[]",
+        "internalType": "bytes[]"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "rewardVoucherLedger",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IRewardVoucherLedger"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "sourceEventId",
+    "inputs": [
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "event",
+    "name": "BaseRewardGatewayConfigured",
+    "inputs": [
+      {
+        "name": "verifier",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "rewardVoucherLedger",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "baseStakingContract",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BaseStakingAttestationConsumed",
+    "inputs": [
+      {
+        "name": "sourceEventId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "rewardId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "action",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum IStakingAttestationVerifier.RewardAction"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "AttestationCommitmentMismatch",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "EtherNotAccepted",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ExpiredAttestation",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidAction",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidAttestation",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidCancellationReason",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidDestination",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "InvalidSource",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotContract",
+    "inputs": [
+      {
+        "name": "target",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ReentrancyGuardReentrantCall",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "SourceEventAlreadyConsumed",
+    "inputs": [
+      {
+        "name": "sourceEventId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ZeroAddress",
+    "inputs": []
+  }
+]

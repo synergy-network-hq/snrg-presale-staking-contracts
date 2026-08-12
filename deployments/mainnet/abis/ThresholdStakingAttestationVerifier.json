@@ -1,0 +1,631 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "registry",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "baseStaking",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "BASE_CHAIN_ID",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "ETHEREUM_CHAIN_ID",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MAX_SIGNATURES",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MAX_SIGNATURE_BYTES",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "SOURCE_EVENT_TYPEHASH",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "STAKING_ATTESTATION_TYPEHASH",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "attestationDigest",
+    "inputs": [
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "attestorRegistry",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IStakingAttestorRegistry"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "baseStakingContract",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "eip712Domain",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "fields",
+        "type": "bytes1",
+        "internalType": "bytes1"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "chainId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "verifyingContract",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "salt",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "extensions",
+        "type": "uint256[]",
+        "internalType": "uint256[]"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "sourceEventId",
+    "inputs": [
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "function",
+    "name": "verifyAttestation",
+    "inputs": [
+      {
+        "name": "attestation",
+        "type": "tuple",
+        "internalType": "struct IStakingAttestationVerifier.StakingAttestation",
+        "components": [
+          {
+            "name": "sourceChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "destinationChainId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "sourceStakingContract",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTxHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceBlockNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sourceBlockHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourceLogIndex",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "staker",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "beneficiary",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "stakeSourceType",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "sourceAsset",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "sourceTokenId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "allocationId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "sourcePositionId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "principalNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardNwei",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "rewardBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "startedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "maturesAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "rewardId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "action",
+            "type": "uint8",
+            "internalType": "enum IStakingAttestationVerifier.RewardAction"
+          },
+          {
+            "name": "cancellationReason",
+            "type": "uint8",
+            "internalType": "uint8"
+          },
+          {
+            "name": "attestationEpoch",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "expiry",
+            "type": "uint64",
+            "internalType": "uint64"
+          }
+        ]
+      },
+      {
+        "name": "signatures",
+        "type": "bytes[]",
+        "internalType": "bytes[]"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "valid",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "EIP712DomainChanged",
+    "inputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "InvalidShortString",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotContract",
+    "inputs": [
+      {
+        "name": "target",
+        "type": "address",
+        "internalType": "address"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "StringTooLong",
+    "inputs": [
+      {
+        "name": "str",
+        "type": "string",
+        "internalType": "string"
+      }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ZeroAddress",
+    "inputs": []
+  }
+]
