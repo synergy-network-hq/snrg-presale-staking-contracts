@@ -169,6 +169,8 @@ contract SynergyStakingRewardVoucher is
     error SoulboundTransferBlocked();
     /// @notice Reverts when the supplied Synergy Mainnet-beta recipient identifier is zero.
     error InvalidMainnetRecipient();
+    /// @notice Reverts because native Synergy redemption is intentionally disabled before Mainnet exists.
+    error MainnetRedemptionNotEnabled();
 
     /// @notice Emitted once when the reward voucher collection and admin are configured.
     event RewardVoucherConfigured(address indexed admin, string baseTokenURI);
@@ -417,40 +419,12 @@ contract SynergyStakingRewardVoucher is
         return tokenId;
     }
 
-    /// @notice Marks an issued Ethereum reward voucher consumed for Synergy Mainnet-beta redemption.
-    /// @dev The NFT remains in the user's wallet as an immutable historical receipt. Mainnet-beta must separately
-    ///      enforce one-time consumption of the authenticated reward ID before issuing native SNRG.
-    /// @param tokenId Reward voucher token ID owned by the caller.
-    /// @param mainnetRecipient Synergy Mainnet-beta recipient identifier.
-    function redeemForSynergyMainnet(uint256 tokenId, bytes32 mainnetRecipient)
-        external
-        nonReentrant
-        whenNotPaused
-        onlyVoucherOwner(tokenId)
-    {
-        if (mainnetRecipient == bytes32(0)) revert InvalidMainnetRecipient();
-
-        bytes32 rewardId = rewardIdByTokenId[tokenId];
-        RewardRecord storage record = _rewards[rewardId];
-        if (record.state != RewardState.ISSUED) revert RewardNotIssued(rewardId);
-
-        record.state = RewardState.REDEEMED;
-        record.redeemedAt = uint64(block.timestamp);
-        record.mainnetRecipient = mainnetRecipient;
-
-        uint256 rewardAmountNwei = record.commitment.rewardNwei;
-        totalOutstandingRewardVouchersNwei = totalOutstandingRewardVouchersNwei - rewardAmountNwei;
-        totalRedeemedStakeRewardsNwei = totalRedeemedStakeRewardsNwei + rewardAmountNwei;
-        totalRedeemedRewardVoucherCount = totalRedeemedRewardVoucherCount + 1;
-
-        Accounting storage accounting = _sourceAccounting[
-            _sourceKey(record.commitment.sourceChainId, record.commitment.sourceStakingContract)
-        ];
-        accounting.outstandingVoucherNwei = accounting.outstandingVoucherNwei - rewardAmountNwei;
-        accounting.redeemedNwei = accounting.redeemedNwei + rewardAmountNwei;
-        accounting.redeemedCount = accounting.redeemedCount + 1;
-
-        emit RewardRedemptionRequested(rewardId, tokenId, msg.sender, mainnetRecipient, rewardAmountNwei);
+    /// @notice Reserved ABI entry point for future Synergy Mainnet redemption compatibility.
+    /// @dev PRE-MAINNET DEPLOYMENTS MUST NEVER use Ethereum ownership alone to select a Synergy recipient or mark
+    ///      a reward redeemed. Future Mainnet imports the immutable issued record and performs PQ recipient binding
+    ///      as the normal first claim step inside the Synergy security domain.
+    function redeemForSynergyMainnet(uint256, bytes32) external pure {
+        revert MainnetRedemptionNotEnabled();
     }
 
     /// @notice Returns the complete reward record for a canonical reward ID.

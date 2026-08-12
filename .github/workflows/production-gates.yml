@@ -1,0 +1,97 @@
+name: presale-staking-production-gates
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Foundry v1.7.1
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+      - name: Pin Solidity libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf lib
+          mkdir -p lib
+          git clone https://github.com/OpenZeppelin/openzeppelin-contracts.git lib/openzeppelin-contracts
+          git -C lib/openzeppelin-contracts checkout 5fd1781b1454fd1ef8e722282f86f9293cacf256
+          test "$(git -C lib/openzeppelin-contracts rev-parse HEAD)" = "5fd1781b1454fd1ef8e722282f86f9293cacf256"
+          git clone https://github.com/foundry-rs/forge-std.git lib/forge-std
+          git -C lib/forge-std checkout bf647bd6046f2f7da30d0c2bf435e5c76a780c1b
+          test "$(git -C lib/forge-std rev-parse HEAD)" = "bf647bd6046f2f7da30d0c2bf435e5c76a780c1b"
+      - name: Prove exact toolchain
+        run: |
+          set -euo pipefail
+          forge --version | tee foundry-version.txt
+          grep -F '1.7.1' foundry-version.txt
+          grep -F 'solc_version = "0.8.36"' foundry.toml
+      - name: Build
+        run: forge build --sizes
+      - name: Unit and hardening tests
+        run: |
+          forge test --match-path 'test/ProductionHardening.t.sol' -vvv
+          forge test --match-path 'test/ThresholdStakingAttestation.t.sol' -vvv
+      - name: Service lock and syntax
+        working-directory: service
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run check
+          npm test
+          npm audit --audit-level=moderate
+          sha256sum package-lock.json | tee package-lock.sha256
+      - name: Upload validated lock evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: service-package-lock
+          path: |
+            service/package-lock.json
+            service/package-lock.sha256
+
+  mandatory-mainnet-forks:
+    runs-on: ubuntu-24.04
+    needs: build-unit
+    env:
+      BASE_RPC_URL: ${{ secrets.BASE_RPC_URL }}
+      ETHEREUM_RPC_URL: ${{ secrets.ETHEREUM_RPC_URL }}
+      BASE_SAFT_VOUCHER: ${{ vars.BASE_SAFT_VOUCHER }}
+      BASE_SAFT_ENTITLEMENT_DECIMALS: ${{ vars.BASE_SAFT_ENTITLEMENT_DECIMALS }}
+      BASE_SAFT_TEST_TOKEN_ID: ${{ vars.BASE_SAFT_TEST_TOKEN_ID }}
+      BASE_UNLOCKED_TEST_HOLDER: ${{ vars.BASE_UNLOCKED_TEST_HOLDER }}
+      BASE_LOCKED_TEST_HOLDER: ${{ vars.BASE_LOCKED_TEST_HOLDER }}
+      ETHEREUM_VOUCHER_TEST_TOKEN_ID: ${{ vars.ETHEREUM_VOUCHER_TEST_TOKEN_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+      - name: Pin Solidity libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf lib
+          mkdir -p lib
+          git clone https://github.com/OpenZeppelin/openzeppelin-contracts.git lib/openzeppelin-contracts
+          git -C lib/openzeppelin-contracts checkout 5fd1781b1454fd1ef8e722282f86f9293cacf256
+          git clone https://github.com/foundry-rs/forge-std.git lib/forge-std
+          git -C lib/forge-std checkout bf647bd6046f2f7da30d0c2bf435e5c76a780c1b
+      - name: Require every fork fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(BASE_RPC_URL ETHEREUM_RPC_URL BASE_SAFT_VOUCHER BASE_SAFT_ENTITLEMENT_DECIMALS BASE_SAFT_TEST_TOKEN_ID BASE_UNLOCKED_TEST_HOLDER BASE_LOCKED_TEST_HOLDER ETHEREUM_VOUCHER_TEST_TOKEN_ID)
+          for name in "${required[@]}"; do
+            if [ -z "${!name:-}" ]; then echo "FATAL: missing mandatory production fork input $name" >&2; exit 1; fi
+          done
+      - name: Run mandatory Base and Ethereum source forks
+        run: forge test --match-path 'test/ForkSources.t.sol' -vvv

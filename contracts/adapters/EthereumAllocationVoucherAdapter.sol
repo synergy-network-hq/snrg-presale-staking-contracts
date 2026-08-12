@@ -5,38 +5,51 @@ import {IEntitlementAdapter} from "../interfaces/IEntitlementAdapter.sol";
 
 /// @title Ethereum Allocation Voucher Read Interface
 /// @author Synergy Network
-/// @notice Minimal read interface used by the Ethereum presale staking adapter.
-/// @dev The flattened allocation return values are ABI-compatible with the current static Allocation struct.
-///      The live production voucher ABI must be verified before deployment.
+/// @notice Exact read interface of SNRGClaimVoucherSoulboundV2's Allocation ABI.
+/// @dev Solidity encodes struct returns as tuples. The nested VestingTerms component and every Allocation
+///      field below deliberately mirror SNRGClaimVoucherSoulboundV2.sol so the adapter cannot decode an
+///      allocation against a stale flattened interface.
 interface IEthereumAllocationVoucher {
+    struct VestingTerms {
+        uint64 vestingStart;
+        uint32 cliffSeconds;
+        uint32 durationSeconds;
+        uint16 initialUnlockBps;
+    }
+
+    struct Allocation {
+        uint64 ledgerId;
+        bytes32 saleIdHash;
+        address walletAddress;
+        address purchaserAddress;
+        bytes32 networkIdHash;
+        uint256 paymentChainId;
+        bytes32 assetSymbolHash;
+        uint96 snrgAmountNwei;
+        uint128 paymentAmountRaw;
+        address paymentTokenAddress;
+        uint8 paymentTokenDecimals;
+        bytes32 paymentTxHash;
+        uint32 stageFrom;
+        uint32 stageTo;
+        uint32 stageId;
+        uint128 priceUsdE8;
+        uint128 usdValueE8;
+        uint64 purchaseTimestamp;
+        bytes32 sourceHash;
+        VestingTerms vesting;
+        bool redeemed;
+    }
+
     /// @notice Returns the current ERC-721 owner of a voucher token.
     /// @param tokenId Voucher token ID.
     /// @return owner Current voucher owner.
     function ownerOf(uint256 tokenId) external view returns (address owner);
 
-    /// @notice Returns the immutable/economic allocation data represented by a voucher token.
-    /// @dev Return values are flattened so the adapter does not allocate a large temporary Solidity struct.
+    /// @notice Returns the economic allocation represented by a voucher token.
+    /// @dev This is the SNRGClaimVoucherSoulboundV2 Allocation return tuple, including its nested vesting tuple.
     /// @param tokenId Voucher token ID.
-    function allocationOf(uint256 tokenId)
-        external
-        view
-        returns (
-            address buyer,
-            uint96 snrgAmountNwei,
-            uint128 paymentAmount,
-            bytes32 paymentTxHash,
-            uint256 paymentChainId,
-            uint32 stageId,
-            uint128 oraclePriceE8,
-            uint128 usdValueE8,
-            uint64 paymentTimestamp,
-            uint64 nonce,
-            uint64 vestingStart,
-            uint32 cliffSeconds,
-            uint32 durationSeconds,
-            uint16 initialUnlockBps,
-            bool redeemed
-        );
+    function allocationOf(uint256 tokenId) external view returns (Allocation memory allocation);
 
     /// @notice Returns the canonical allocation fingerprint for a voucher token.
     /// @dev The fingerprint should remain stable for the lifetime of the allocation.
@@ -59,6 +72,8 @@ contract EthereumAllocationVoucherAdapter is IEntitlementAdapter {
     error InvalidVoucherContract();
     /// @notice Reverts if native ETH is accidentally supplied during deployment.
     error UnexpectedEther();
+    /// @notice Reverts when a minted source voucher has no canonical allocation fingerprint.
+    error MissingTokenFingerprint(uint256 tokenId);
 
     /// @notice Emitted once when the immutable adapter dependency is configured.
     /// @param voucherAddress Ethereum voucher contract read by this adapter.
@@ -79,7 +94,8 @@ contract EthereumAllocationVoucherAdapter is IEntitlementAdapter {
     /// @inheritdoc IEntitlementAdapter
     /// @notice Reads current ownership, SNRG entitlement, canonical allocation ID, and redemption state.
     /// @dev The adapter requires the configured voucher to implement ownerOf(), allocationOf(), and
-    ///      tokenFingerprint(). This avoids optional-call ambiguity and makes deployment ABI verification explicit.
+    ///      tokenFingerprint() exactly as SNRGClaimVoucherSoulboundV2 does. This avoids optional-call ambiguity
+    ///      and prevents a stale source ABI from silently producing a different allocation identity.
     function entitlement(uint256 tokenId)
         external
         view
@@ -88,42 +104,17 @@ contract EthereumAllocationVoucherAdapter is IEntitlementAdapter {
     {
         IEthereumAllocationVoucher sourceVoucher = IEthereumAllocationVoucher(voucher);
 
-        uint96 snrgAmountNwei;
-        bytes32 paymentTxHash;
-        uint256 paymentChainId;
-        uint64 nonce;
-        bool redeemed;
-
-        (
-            ,
-            snrgAmountNwei,
-            ,
-            paymentTxHash,
-            paymentChainId,
-            ,
-            ,
-            ,
-            ,
-            nonce,
-            ,
-            ,
-            ,
-            ,
-            redeemed
-        ) = sourceVoucher.allocationOf(tokenId);
+        IEthereumAllocationVoucher.Allocation memory allocation = sourceVoucher.allocationOf(tokenId);
 
         // Avoid ownerOf() after redemption because some ERC-721 implementations burn on consumption.
-        owner = redeemed ? address(0) : sourceVoucher.ownerOf(tokenId);
-        entitlementNwei = uint256(snrgAmountNwei);
+        owner = allocation.redeemed ? address(0) : sourceVoucher.ownerOf(tokenId);
+        entitlementNwei = uint256(allocation.snrgAmountNwei);
 
         bytes32 fingerprint = sourceVoucher.tokenFingerprint(tokenId);
-        if (fingerprint == bytes32(0)) {
-            allocationId = keccak256(abi.encode(paymentChainId, paymentTxHash, nonce));
-        } else {
-            allocationId = fingerprint;
-        }
+        if (fingerprint == bytes32(0)) revert MissingTokenFingerprint(tokenId);
+        allocationId = fingerprint;
 
-        consumed = redeemed;
+        consumed = allocation.redeemed;
         return (owner, entitlementNwei, allocationId, consumed);
     }
 }

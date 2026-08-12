@@ -1,0 +1,21 @@
+[Unit]
+Description=Synergy Presale Staking EIP-712 Attestor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sxcp-attestor
+WorkingDirectory=/opt/synergy/sxcp-staking-integration/service
+EnvironmentFile=/etc/synergy/sxcp-staking-attestor.env
+ExecStart=/usr/bin/bash /opt/synergy/sxcp-staking-integration/service/linux/run-node22.sh src/attestor/index.js
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/etc/synergy/sxcp-staking
+
+[Install]
+WantedBy=multi-user.target

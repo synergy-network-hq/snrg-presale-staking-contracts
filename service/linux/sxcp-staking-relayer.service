@@ -1,0 +1,24 @@
+[Unit]
+Description=Synergy Presale Staking Threshold Attestation Relayer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sxcp
+WorkingDirectory=/opt/synergy/sxcp-staking-integration/service
+EnvironmentFile=/etc/synergy/sxcp-staking-relayer.env
+# Node 22 is required by the pinned better-sqlite3 runtime; the wrapper
+# rejects an accidental Node 24 service start before any state is opened.
+ExecStart=/usr/bin/bash /opt/synergy/sxcp-staking-integration/service/linux/run-node22.sh src/relayer/index.js
+Restart=on-failure
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/synergy-sxcp-staking
+StateDirectory=synergy-sxcp-staking
+
+[Install]
+WantedBy=multi-user.target

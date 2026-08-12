@@ -1,0 +1,16 @@
+SNRG presale staking v0.3 production toolchain lock
+
+Foundry: v1.7.1
+forge-std: v1.16.2
+forge-std commit: bf647bd6046f2f7da30d0c2bf435e5c76a780c1b
+OpenZeppelin Contracts: v5.6.1
+OpenZeppelin commit: 5fd1781b1454fd1ef8e722282f86f9293cacf256
+Solidity: 0.8.36
+EVM target: cancun
+Optimizer: enabled, 200 runs
+via_ir: true
+bytecode_hash: ipfs
+Node service runtime: >=22 <24
+service/package-lock.json SHA-256: ae0efaabd2558aa982e7be435dc99f735e1c9f4d076827304a9c6b9fd9c35c33
+
+All release builds MUST record the exact repository source commit and SHA-256 of service/package-lock.json.

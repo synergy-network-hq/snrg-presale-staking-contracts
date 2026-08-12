@@ -1,0 +1,21 @@
+{
+  "name": "sxcp-staking-integration",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Conventional EIP-712 threshold attestor and durable relay service for SNRG presale staking rewards.",
+  "engines": {
+    "node": ">=22 <24"
+  },
+  "scripts": {
+    "relayer": "node src/relayer/index.js",
+    "attestor": "node src/attestor/index.js",
+    "check": "find src test -name '*.js' -type f -print0 | xargs -0 -n1 node --check",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "11.0.0",
+    "dotenv": "16.4.5",
+    "ethers": "6.17.0"
+  }
+}
