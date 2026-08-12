@@ -4,15 +4,18 @@ import { Contract, JsonRpcProvider, TypedDataEncoder, getAddress, verifyTypedDat
 import { ATTESTOR_REGISTRY_ABI } from '../shared/abis.js';
 import { STAKING_ATTESTATION_TYPES, eip712Domain, jsonStringify } from '../shared/codec.js';
 
-function postJson(url, body, agent, timeoutMs) {
+function requestJson(url, { method = 'GET', body, agent, timeoutMs }) {
   return new Promise((resolve, reject) => {
     const parsed = new URL(url);
     if (parsed.protocol !== 'https:') return reject(new Error('attestor URL must use HTTPS'));
+    const headers = body === undefined
+      ? undefined
+      : { 'content-type': 'application/json', 'content-length': Buffer.byteLength(body) };
     const request = https.request(parsed, {
-      method: 'POST',
+      method,
       agent,
       timeout: timeoutMs,
-      headers: { 'content-type': 'application/json', 'content-length': Buffer.byteLength(body) },
+      headers,
     }, response => {
       const chunks = [];
       response.on('data', chunk => chunks.push(chunk));
@@ -26,6 +29,36 @@ function postJson(url, body, agent, timeoutMs) {
     request.on('error', reject);
     request.end(body);
   });
+}
+
+export function evaluateAttestorReadiness({ epoch, configuredAddresses, authorizedAddresses, healthResponses }) {
+  const configured = configuredAddresses.map(address => getAddress(address));
+  const authorized = new Set(authorizedAddresses.map(address => getAddress(address).toLowerCase()));
+  const epochActive = epoch.active === true
+    && Number(epoch.threshold) === 2
+    && Number(epoch.attestorCount) === 3;
+  const registryEpochActive = epochActive
+    && configured.every(address => authorized.has(address.toLowerCase()));
+  const reachable = new Set();
+  if (registryEpochActive) {
+    for (const response of healthResponses) {
+      if (response.status !== 'fulfilled') continue;
+      try {
+        const address = getAddress(response.value.attestor);
+        if (response.value.ok !== true) continue;
+        if (Number(response.value.epochId) !== Number(epoch.epochId)) continue;
+        if (!authorized.has(address.toLowerCase())) continue;
+        reachable.add(address.toLowerCase());
+      } catch {
+        // Malformed or unauthorised health responses do not count toward quorum.
+      }
+    }
+  }
+  return {
+    registryEpochActive,
+    attestorQuorumReady: registryEpochActive && reachable.size >= 2,
+    reachableAttestors: reachable.size,
+  };
 }
 
 export class ThresholdAttestorClient {
@@ -65,13 +98,48 @@ export class ThresholdAttestorClient {
     }
   }
 
+  async readiness() {
+    const configuredAddresses = this.config.attestors.map(item => getAddress(item.address));
+    let epoch;
+    let authorizedAddresses = [];
+    try {
+      const onChainEpoch = await this.registry.epoch(this.epochId);
+      epoch = {
+        epochId: this.epochId,
+        active: onChainEpoch.active,
+        threshold: Number(onChainEpoch.threshold),
+        attestorCount: Number(onChainEpoch.attestorCount),
+      };
+      const membership = await Promise.all(configuredAddresses.map(address => (
+        this.registry.isAttestor(this.epochId, address)
+      )));
+      authorizedAddresses = configuredAddresses.filter((_, index) => membership[index]);
+    } catch {
+      return { registryEpochActive: false, attestorQuorumReady: false, reachableAttestors: 0 };
+    }
+
+    const healthResponses = await Promise.allSettled(this.config.attestors.map(item => (
+      requestJson(new URL('/healthz', item.url), {
+        method: 'GET',
+        agent: this.agent,
+        timeoutMs: this.timeoutMs,
+      })
+    )));
+    return evaluateAttestorReadiness({ epoch, configuredAddresses, authorizedAddresses, healthResponses });
+  }
+
   async collect(request) {
     const body = jsonStringify(request);
     const domain = eip712Domain(this.verifierAddress);
     const digest = TypedDataEncoder.hash(domain, STAKING_ATTESTATION_TYPES, request.attestation);
     const configured = new Map(this.config.attestors.map(item => [getAddress(item.address).toLowerCase(), item]));
     const settled = await Promise.allSettled(this.config.attestors.map(item => (
-      postJson(new URL('/v1/attest', item.url), body, this.agent, this.timeoutMs)
+      requestJson(new URL('/v1/attest', item.url), {
+        method: 'POST',
+        body,
+        agent: this.agent,
+        timeoutMs: this.timeoutMs,
+      })
     )));
     const signatures = [];
     for (const result of settled) {

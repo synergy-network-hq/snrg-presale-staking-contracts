@@ -9,7 +9,12 @@ export function startOperationalServer({ host = '127.0.0.1', port, snapshot }) {
     if (request.method === 'GET' && (request.url === '/healthz' || request.url === '/readyz')) {
       const ready = request.url === '/healthz' || state.ready === true;
       response.writeHead(ready ? 200 : 503, { 'content-type': 'application/json', 'cache-control': 'no-store' });
-      response.end(JSON.stringify({ ok: ready, ready: state.ready === true }));
+      response.end(JSON.stringify({
+        ok: ready,
+        ready: state.ready === true,
+        registryEpochActive: state.registryEpochActive === true,
+        attestorQuorumReady: state.attestorQuorumReady === true,
+      }));
       return;
     }
     if (request.method === 'GET' && request.url === '/metrics') {

@@ -16,6 +16,15 @@ import { BaseStakingWatcher } from './watcher.js';
 
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 
+function relayerReadinessSnapshot(state, store) {
+  return {
+    ...state,
+    registryEpochActive: state.registryEpochActive === true,
+    attestorQuorumReady: state.attestorQuorumReady === true,
+    store: store.operationalSnapshot(),
+  };
+}
+
 async function loadRelayerSigner() {
   const encrypted = fs.readFileSync(required('ETHEREUM_RELAYER_KEYSTORE_PATH'), 'utf8');
   const password = fs.readFileSync(required('ETHEREUM_RELAYER_KEYSTORE_PASSWORD_FILE'), 'utf8').trimEnd();
@@ -51,8 +60,6 @@ async function main() {
     verifierAddress,
     timeoutMs: integer('ATTESTOR_TIMEOUT_MS', 20000),
   });
-  await attestors.assertOnChainConfiguration();
-
   const relayerSigner = await loadRelayerSigner();
   const submitter = new EthereumGatewaySubmitter({
     rpcUrl: required('ETHEREUM_RPC_URL'),
@@ -61,11 +68,16 @@ async function main() {
     confirmations: integer('ETHEREUM_CONFIRMATIONS', 2),
   });
 
-  const state = { ready: true };
+  const state = {
+    ready: false,
+    registryEpochActive: false,
+    attestorQuorumReady: false,
+    reachableAttestors: 0,
+  };
   const operational = startOperationalServer({
     host: process.env.RELAYER_HEALTH_HOST || '127.0.0.1',
     port: integer('RELAYER_HEALTH_PORT', 9460),
-    snapshot: () => ({ ...state, store: store.operationalSnapshot() }),
+    snapshot: () => relayerReadinessSnapshot(state, store),
   });
 
   let stopping = false;
@@ -74,6 +86,17 @@ async function main() {
 
   while (!stopping) {
     try {
+      const readiness = await attestors.readiness();
+      Object.assign(state, readiness);
+      state.ready = readiness.registryEpochActive && readiness.attestorQuorumReady;
+      if (!state.ready) {
+        console.error(
+          `[Relayer] activation gate closed: registry=${readiness.registryEpochActive} `
+          + `reachableAttestors=${readiness.reachableAttestors}/2`,
+        );
+        await sleep(pollMs);
+        continue;
+      }
       const discovered = await watcher.scanOnce();
       if (discovered) console.log(`[Relayer] discovered ${discovered} finalized Base staking events`);
       for (const row of store.pendingEvents()) {
@@ -132,7 +155,6 @@ async function main() {
       console.error(`[Relayer] scan loop error: ${error.stack || error.message}`);
     }
     await sleep(pollMs);
-    state.ready = true;
   }
   operational.close();
   store.close();
