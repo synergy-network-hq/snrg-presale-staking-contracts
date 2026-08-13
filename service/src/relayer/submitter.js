@@ -20,14 +20,23 @@ export class EthereumGatewaySubmitter {
     const canonicalCommitment = commitmentTuple(commitment);
     const canonicalAttestation = attestationTuple(attestation);
     let transaction;
-    if (action === ACTION.REGISTER) {
-      transaction = await this.gateway.registerPendingReward(canonicalCommitment, canonicalAttestation, signatures);
-    } else if (action === ACTION.ISSUE) {
-      transaction = await this.gateway.issueRewardVoucher(canonicalCommitment, canonicalAttestation, signatures);
-    } else if (action === ACTION.CANCEL) {
-      transaction = await this.gateway.cancelPendingReward(canonicalCommitment, Number(reason), canonicalAttestation, signatures);
-    } else {
-      throw new Error(`unknown staking action ${action}`);
+    try {
+      if (action === ACTION.REGISTER) {
+        transaction = await this.gateway.registerPendingReward(canonicalCommitment, canonicalAttestation, signatures);
+      } else if (action === ACTION.ISSUE) {
+        transaction = await this.gateway.issueRewardVoucher(canonicalCommitment, canonicalAttestation, signatures);
+      } else if (action === ACTION.CANCEL) {
+        transaction = await this.gateway.cancelPendingReward(canonicalCommitment, Number(reason), canonicalAttestation, signatures);
+      } else {
+        throw new Error(`unknown staking action ${action}`);
+      }
+    } catch (error) {
+      // NonceManager advances its local nonce before the RPC accepts a signed
+      // transaction. Reset it when estimation/signing/broadcast fails so a
+      // transient failure (for example, an empty gas wallet) cannot create a
+      // permanent nonce gap once the wallet is funded.
+      this.wallet.reset();
+      throw error;
     }
     onSubmitted?.(transaction.hash);
     const receipt = await transaction.wait(this.confirmations);
