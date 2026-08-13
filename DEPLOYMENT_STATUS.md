@@ -4,20 +4,34 @@
 
 The release contains the hardened Base/Ethereum staking contracts, conventional two-of-three EIP-712 verifier boundary, deterministic deployment scripts, mandatory fork-source tests, production CI gates, and the frozen `LegacyRewardClaimV1` future-Mainnet import format.
 
-No Base or Ethereum mainnet transaction has been broadcast from this build environment.
+The eight production contracts were deployed and exact-match verified from release commit
+`bfbdf432fbacbdd6570bc546250a3da0990ea5b9`. The deployment addresses,
+creation transactions, runtime bytecode hashes, ABIs, and explorer links are recorded in
+`deployments/mainnet/contracts.json`. Safe Transaction Builder batches for the remaining
+governance activation are recorded in `deployments/mainnet/safe-base-8453.json` and
+`deployments/mainnet/safe-ethereum-1.json`.
 
-## Why mainnet broadcast is intentionally blocked
+## Live activation
 
-The supplied artifacts do not contain the production authorities or configuration required to safely and truthfully execute a mainnet deployment. The deployment scripts therefore remain in dry-run mode unless `BROADCAST=true` is explicitly supplied in an authorized execution environment.
+Both governance Safe batches have been executed. The locked token is connected to the Base
+staking contract, the required operational and reward-ledger roles are active, and attestor
+epoch 1 has three authorized members with a two-of-three threshold. All three independent
+attestors and the durable relay are enabled and active. The website preflight reports staking
+enabled with transactions enabled and no readiness reasons.
 
-Production values are supplied only at deployment time and must never be committed:
+The first live Base position was opened in transaction
+`0x6188b564fb301ded5a1d009720cbb4a2c93f80d21d5f2de8323af0d9f81e376f`.
+Its 200 SNRG reward commitment was registered on Ethereum in transaction
+`0xb00716e66524b30512c50b90ede3b9c5c8768f155ccb49548f4f61b6866cace5`.
+The gateway marks source event
+`0x8de1da16aad4f09f9661237adba274eb1467c5e46547588df0d49122c6c6075d`
+consumed, and replay returns `SourceEventAlreadyConsumed`. The reward remains pending until
+the selected fixed term matures and the owner settles the position.
 
-- approved governance Safe address;
-- authorized Base/Ethereum deployment signer or HSM/keystore access;
+Secret production values remain outside the repository:
+
 - production Base RPC URL and BaseScan API key;
 - production Ethereum RPC URL and Etherscan API key;
-- enrollment opening and closing timestamps;
-- production reward-voucher metadata base URI;
 - three independent attestor identities and encrypted keystores;
 - mTLS CA/server/client material and production service host placement.
 
