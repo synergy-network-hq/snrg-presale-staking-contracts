@@ -108,3 +108,83 @@ verification-cache/
 # test/          - Tests should normally be committed.
 # script/        - Deployment scripts should normally be committed.
 # README.md      - Project documentation.
+
+# BEGIN SYNERGY MANAGED REPOSITORY HYGIENE
+# Common OS and editor metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+~$*
+.idea/
+.vscode/
+
+# Local environment files, credentials, and signing material
+.env
+.env.*
+!.env.example
+!.env.*.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+!.dev.vars.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+local.properties
+
+# Dependencies, build output, coverage, and caches
+node_modules/
+target/
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+.next/
+.nuxt/
+.svelte-kit/
+.expo/
+.gradle/
+DerivedData/
+Pods/
+xcuserdata/
+*.xcuserstate
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.cache/
+.tmp/
+tmp/
+temp/
+.turbo/
+.parcel-cache/
+.vite/
+.wrangler/
+.playwright-cli/
+
+# Logs, temporary files, local databases, and consolidation metadata
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+*.sqlite
+*.sqlite3
+*.db
+.terraform/
+*.tfstate
+*.tfstate.*
+PROVENANCE-*.json
+# END SYNERGY MANAGED REPOSITORY HYGIENE
