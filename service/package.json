@@ -1,0 +1,22 @@
+{
+  "name": "snrg-staking-sxcp-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Native SXCP/Aegis finalized-event relayer and independent witness service for SNRG presale staking.",
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "check": "node --check src/shared/abis.js && node --check src/shared/codec.js && node --check src/shared/config.js && node --check src/shared/operational-server.js && node --check src/relayer/index.js && node --check src/relayer/store.js && node --check src/relayer/base-watcher.js && node --check src/relayer/ethereum-observer.js && node --check src/witness/index.js && node --check src/witness/server.js && node --check src/witness/source-validator.js && node --check test/*.test.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "relayer": "node src/relayer/index.js",
+    "witness": "node src/witness/index.js",
+    "validate-production-config": "node scripts/validate-production-config.mjs"
+  },
+  "dependencies": {
+    "better-sqlite3": "11.10.0",
+    "dotenv": "16.6.1",
+    "ethers": "6.15.0"
+  }
+}
